@@ -45,3 +45,36 @@
 ### Класс ShapeAreaCalculator<T>
 
 Класс `ShapeAreaCalculator<T>` представляет собой реализацию интерфейса `IShapeAreaCalculator<T>`. В конструкторе принимаются объекты `ILogger` для логирования и `IDatabase` для работы с Redis. Метод `CalculateAreaAsync` сначала проверяет наличие кэша для фигуры, используя Redis, и, если данные найдены, возвращает их. В противном случае, метод вычисляет площадь, сохраняет результат в кэше и затем возвращает его.
+
+###  ОТВЕТ - SQL
+```sql
+CREATE TABLE Products (
+    ProductID INT PRIMARY KEY,
+    ProductName NVARCHAR(100)
+);
+
+CREATE TABLE Categories (
+    CategoryID INT PRIMARY KEY,
+    CategoryName NVARCHAR(100)
+);
+
+CREATE TABLE ProductCategories (
+    ProductID INT,
+    CategoryID INT,
+    FOREIGN KEY (ProductID) REFERENCES Products(ProductID),
+    FOREIGN KEY (CategoryID) REFERENCES Categories(CategoryID)
+);
+
+SELECT 
+    p.ProductName,
+    c.CategoryName
+FROM 
+    Products p
+LEFT JOIN 
+    ProductCategories pc ON p.ProductID = pc.ProductID
+LEFT JOIN 
+    Categories c ON pc.CategoryID = c.CategoryID;
+
+
+
+
