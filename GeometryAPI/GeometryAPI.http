@@ -1,0 +1,6 @@
+@GeometryAPI_HostAddress = http://localhost:5120
+
+GET {{GeometryAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
