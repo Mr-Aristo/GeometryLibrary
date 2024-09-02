@@ -35,7 +35,7 @@ namespace GeometryAPI
                 options.DefaultApiVersion = new ApiVersion(1, 0);
                 options.AssumeDefaultVersionWhenUnspecified = true;
                 options.ReportApiVersions = true;
-                options.ApiVersionReader = new HeaderApiVersionReader("x-api-version"); // Versiyon bilgisini Header'dan al
+                options.ApiVersionReader = new HeaderApiVersionReader("x-api-version"); // Take Versiyon info from Header 
             });
 
             builder.Services.AddControllers();
