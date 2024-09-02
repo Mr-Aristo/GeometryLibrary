@@ -45,6 +45,11 @@ namespace GeometryAPI.Controllers
         [MapToApiVersion("2.0")]
         public async Task<IActionResult> CalculateCircleArea([FromBody] Circle circle)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var area = await _circleCalculator.CalculateAreaAsync(circle);
             return Ok(new { shape = circle.Name, area });
         }
@@ -54,6 +59,10 @@ namespace GeometryAPI.Controllers
         [MapToApiVersion("2.0")]
         public async Task<IActionResult> CalculateTriangleArea([FromBody] Triangle triangle)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var area = await _triangleCalculator.CalculateAreaAsync(triangle);
             return Ok(new { shape = triangle.Name, area, isRightAngled = triangle.IsRightAngled() });
         }

@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using StackExchange.Redis;
-
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using GeometryLibrary.Validations;
 namespace GeometryAPI
 {
     public class Program
@@ -37,6 +39,16 @@ namespace GeometryAPI
                 options.ReportApiVersions = true;
                 options.ApiVersionReader = new HeaderApiVersionReader("x-api-version"); // Take Versiyon info from Header 
             });
+
+            // Add services to the container.
+            builder.Services.AddControllers()
+                .AddFluentValidation(fv =>
+            {
+                fv.RegisterValidatorsFromAssemblyContaining<CircleValidator>();
+                fv.RegisterValidatorsFromAssemblyContaining<TriangleValidator>();
+            });
+
+
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
